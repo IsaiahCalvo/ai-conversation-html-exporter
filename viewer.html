@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Conversation HTML</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height:100%; overflow:hidden; }
+    body { margin:0; display:flex; flex-direction:column; font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:#0f172a; color:#e5e7eb; }
+    .bar { flex:0 0 auto; z-index:2; display:flex; gap:8px; align-items:center; padding:10px 12px; background:#0f172a; border-bottom:1px solid #263247; }
+    .title { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:800; }
+    button { border:0; border-radius:10px; padding:8px 10px; font-weight:800; cursor:pointer; background:#60a5fa; color:#07111f; }
+    button.secondary { background:#243044; color:#e5e7eb; border:1px solid #334155; }
+    button:disabled { opacity:.55; cursor:not-allowed; }
+    .publish-menu { position:relative; display:flex; align-items:stretch; }
+    .publish-menu #publish { border-radius:10px; transition:border-radius .18s ease, box-shadow .18s ease, background .18s ease; }
+    .publish-menu #publishMenuToggle { width:0; min-width:0; opacity:0; overflow:hidden; pointer-events:none; transform:translateX(-4px); border-left:0; border-radius:0 10px 10px 0; padding:8px 0; transition:width .18s ease, min-width .18s ease, opacity .16s ease, transform .18s ease, padding .18s ease, background .18s ease; }
+    .publish-menu.has-link #publish { border-radius:10px 0 0 10px; box-shadow:inset -1px 0 0 rgba(255,255,255,.06); }
+    .publish-menu.has-link #publishMenuToggle { width:34px; min-width:34px; opacity:1; pointer-events:auto; transform:translateX(0); padding:8px 9px; }
+    .publish-menu.open #publish { border-bottom-left-radius:0; }
+    .publish-menu.open #publishMenuToggle { background:#334155; border-bottom-right-radius:0; }
+    .publish-dropdown { display:none; position:absolute; left:0; right:0; top:calc(100% - 1px); min-width:100%; padding:0; border-radius:0 0 10px 10px; background:#243044; border:1px solid #334155; border-top:0; box-shadow:0 18px 38px rgba(0,0,0,.32); overflow:hidden; z-index:5; }
+    .publish-menu.open .publish-dropdown { display:block; }
+    .publish-dropdown button { width:100%; margin:0; display:flex; align-items:center; justify-content:center; text-align:center; background:#243044; color:#e5e7eb; border:0; border-radius:0; padding:9px 14px 10px; box-shadow:inset 0 1px 0 rgba(255,255,255,.04); }
+    .publish-dropdown button:hover { background:#2b3850; }
+    #status { color:#aab3c5; font-size:12px; min-width:24px; max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:right; }
+    iframe { flex:1 1 auto; min-height:0; width:100%; height:auto; border:0; background:white; display:block; }
+    @media print { html, body { height:auto; overflow:visible; } body { display:block; background:#fff; } .bar { display:none; } iframe { height:auto !important; min-height:100vh; } }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <div class="title" id="title">AI Conversation HTML</div>
+    <button id="original">Original Conversation</button>
+    <button id="download" class="secondary">Download HTML</button>
+    <button id="pdf" class="secondary">PDF</button>
+    <button id="share" class="secondary" title="Shares the HTML file, not this local preview URL">Share File</button>
+    <div id="publishMenu" class="publish-menu">
+      <button id="publish" class="secondary" title="Uploads this HTML to here.now as a 24-hour public link">Publish 24h Link</button>
+      <button id="publishMenuToggle" class="secondary" title="Open latest 24h link options" aria-expanded="false">▾</button>
+      <div id="publishDropdown" class="publish-dropdown">
+        <button id="goPublished" type="button">Copy</button>
+      </div>
+    </div>
+    <span id="status"></span>
+  </div>
+  <iframe id="frame" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation allow-modals"></iframe>
+  <script src="viewer.js"></script>
+</body>
+</html>

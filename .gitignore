@@ -1,0 +1,7 @@
+*.zip
+.DS_Store
+node_modules/
+dist/
+coverage/
+test-*-export.html
+test-rich-capture.html

@@ -1,0 +1,11 @@
+{
+  "name": "ai-conversation-html-exporter",
+  "version": "0.4.21",
+  "private": true,
+  "description": "Export ChatGPT, Claude, and Gemini conversations to standalone HTML.",
+  "scripts": {
+    "test": "node --check background.js && node --check content.js && node --check popup.js && node --check viewer.js && node test-viewer-node.js && node test-publish-background-node.js",
+    "package": "bash scripts/package-extension.sh"
+  },
+  "license": "MIT"
+}
