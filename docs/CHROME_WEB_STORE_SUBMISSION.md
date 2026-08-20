@@ -4,7 +4,7 @@ Use the current first-party Google documentation linked below; dashboard wording
 
 ## Ready artifacts
 
-- Upload ZIP: `dist/ai-conversation-html-exporter-0.4.22.zip`
+- Upload ZIP: `dist/ai-conversation-html-exporter-0.4.23.zip`
 - Extension icon in ZIP: `icons/icon128.png` (128×128)
 - Required screenshot: `store-assets/screenshot-1280x800.png` (1280×800)
 - Required small promotional tile: `store-assets/small-promo-440x280.png` (440×280)
@@ -22,8 +22,8 @@ Use the current first-party Google documentation linked below; dashboard wording
 ## Create the item
 
 1. Choose **New item** in the Developer Dashboard.
-2. Upload `dist/ai-conversation-html-exporter-0.4.22.zip`.
-3. Confirm that the dashboard reads version `0.4.22`, Manifest V3, the correct name, and the requested permissions.
+2. Upload `dist/ai-conversation-html-exporter-0.4.23.zip`.
+3. Confirm that the dashboard reads version `0.4.23`, Manifest V3, the correct name, and the requested permissions.
 4. If metadata inside `manifest.json` needs correction, edit it locally, increment the version, rebuild, retest, and upload the newer ZIP. Manifest metadata cannot be directly fixed in the dashboard.
 
 ## Store listing

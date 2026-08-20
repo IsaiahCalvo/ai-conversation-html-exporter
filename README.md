@@ -67,7 +67,6 @@ npm run package
 | `activeTab` | Read the supported conversation after you click the extension. |
 | ChatGPT / Claude / Gemini host access | Extract the loaded conversation and embed media from those pages. |
 | `scripting` | Inject the local `content.js` file if it is not already running. |
-| `downloads` | Save standalone HTML files. |
 | `storage` | Keep viewer/source metadata and the one-time publish consent. |
 | `unlimitedStorage` | Hold large local HTML exports with embedded media. |
 | `tabs` | Open/focus the viewer and find the original conversation tab. This can read other open tab URLs in this profile for that matching. |

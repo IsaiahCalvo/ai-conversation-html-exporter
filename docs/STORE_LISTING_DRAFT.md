@@ -50,7 +50,6 @@ Convert user-selected conversations on supported AI chat websites into portable 
 
 - `activeTab`: access the supported conversation tab after the user invokes the extension.
 - `scripting`: inject the local content script when it is not already available.
-- `downloads`: download the generated standalone HTML file.
 - `storage`: retain generated export/viewer metadata locally.
 - `unlimitedStorage`: support large conversations and embedded media without the small default quota breaking exports.
 - `tabs`: create and focus the export viewer, and find the original conversation tab. This can include reading other open tab URLs in the profile so the extension can match the saved source URL or an existing viewer; those URLs stay on-device.
@@ -95,4 +94,4 @@ All files are in `store-assets/` and copied to `~/Desktop/builds/chrome-web-stor
 - Screenshot 2 — extension popup: `5-screenshot-popup-1280x800.png`
 - Screenshot 3 — publish consent: `6-screenshot-consent-1280x800.png`
 
-Upload ZIP: `ai-conversation-html-exporter-0.4.22.zip`
+Upload ZIP: `ai-conversation-html-exporter-0.4.23.zip`

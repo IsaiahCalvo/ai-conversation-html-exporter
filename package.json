@@ -1,6 +1,6 @@
 {
   "name": "ai-conversation-html-exporter",
-  "version": "0.4.22",
+  "version": "0.4.23",
   "private": true,
   "description": "Export ChatGPT, Claude, and Gemini conversations to standalone HTML.",
   "scripts": {

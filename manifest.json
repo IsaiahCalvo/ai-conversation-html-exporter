@@ -1,12 +1,11 @@
 {
   "manifest_version": 3,
   "name": "AI Conversation HTML Exporter",
-  "version": "0.4.22",
+  "version": "0.4.23",
   "description": "Export ChatGPT, Claude, and Gemini conversations to clean standalone HTML.",
   "permissions": [
     "activeTab",
     "scripting",
-    "downloads",
     "storage",
     "tabs",
     "unlimitedStorage"

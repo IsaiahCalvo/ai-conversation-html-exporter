@@ -109,7 +109,6 @@ The extension does not:
 | `activeTab` | Read the conversation tab after you click the extension. |
 | Host access to ChatGPT, Claude, and Gemini | Extract the loaded conversation and embed media from those pages. |
 | `scripting` | Inject the local `content.js` file if it is not already running. |
-| `downloads` | Save the `.html` file. |
 | `storage` | Remember viewer/source metadata and the one-time publish consent. |
 | `unlimitedStorage` | Keep large HTML exports with embedded media from hitting Chrome’s small default quota. |
 | `tabs` | Open the HTML viewer, focus it later, and find the original conversation tab. This can include reading other open tab URLs in this profile for that matching. |

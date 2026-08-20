@@ -1,6 +1,6 @@
 # Chrome Web Store release guide (Manifest V3)
 
-**Project:** AI Conversation HTML Exporter `0.4.22`
+**Project:** AI Conversation HTML Exporter `0.4.23`
 **Checked:** 2026-07-25
 **Scope:** Current first-party Chrome/Google documentation only. This is a preparation checklist; nothing was uploaded or submitted.
 
@@ -42,10 +42,10 @@ Also provide a precise detailed description, primary category, language, and—w
 
 ### Project-specific preflight
 
-The release candidate is MV3/version `0.4.22`. Its permission usage was checked against the source:
+The release candidate is MV3/version `0.4.23`. Its permission usage was checked against the source:
 
 1. `activeTab` and the supported-site host permissions scope extraction to user-invoked ChatGPT, Claude, and Gemini conversations. `scripting` is used only as a fallback to inject the packaged content script when it is not already responding.
-2. `tabs` is used to create, find, focus, and reuse viewer/source tabs. `storage` stores lightweight session indexes, while `unlimitedStorage` supports the IndexedDB payloads used for very large local HTML exports. `downloads` saves the generated standalone HTML.
+2. `tabs` is used to create, find, focus, and reuse viewer/source tabs. `storage` stores lightweight session indexes, while `unlimitedStorage` supports the IndexedDB payloads used for very large local HTML exports. Standalone HTML downloads use an ordinary user-initiated browser download and do not need the `downloads` permission.
 3. here.now and Cloudflare R2 host access is used only after the user explicitly chooses **Publish 24h Link**. The privacy policy and Dashboard disclosures must explain that this action transmits the generated conversation HTML; ordinary HTML/PDF creation remains local.
 4. The sanitized Store ZIP is built from a runtime-file allowlist. It contains the required 128×128 icon and manifest icon declarations and excludes test conversations, credentials, development files, and unrelated assets.
 5. Required listing artwork is ready: a 1280×800 synthetic screenshot and 440×280 promotional tile. No private conversation appears in either asset.
