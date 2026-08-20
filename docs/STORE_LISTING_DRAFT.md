@@ -26,9 +26,11 @@ Features:
 Privacy-first behavior:
 
 - HTML creation, downloads, PDF printing, and native file sharing stay local
-- No analytics, ads, accounts, or API keys
+- No analytics, ads, accounts, API keys, or developer backend
 - Nothing is uploaded unless you explicitly click Publish 24h Link
-- Public links can contain sensitive conversation content; publish only what you intend to share
+- The first publish asks you to confirm that the HTML becomes a public here.now link; later publishes reuse that consent
+- Public links can contain the full exported conversation; publish only what you intend to share
+- The extension can read open-tab URLs locally so it can return to the original chat or reuse an export tab; those URLs are not uploaded
 
 The extension exports the conversation currently loaded by the site. For very long conversations, scroll through them first so all messages are loaded.
 
@@ -51,9 +53,24 @@ Convert user-selected conversations on supported AI chat websites into portable 
 - `downloads`: download the generated standalone HTML file.
 - `storage`: retain generated export/viewer metadata locally.
 - `unlimitedStorage`: support large conversations and embedded media without the small default quota breaking exports.
-- `tabs`: create/focus the export viewer and return to the original conversation.
-- ChatGPT/Claude/Gemini host permissions: read the supported conversation content required for export.
-- here.now/Cloudflare R2 host permissions: upload generated HTML only after the user explicitly invokes Publish 24h Link.
+- `tabs`: create and focus the export viewer, and find the original conversation tab. This can include reading other open tab URLs in the profile so the extension can match the saved source URL or an existing viewer; those URLs stay on-device.
+- ChatGPT/Claude/Gemini host permissions: read the supported conversation content and embed media already shown on those pages.
+- here.now/Cloudflare R2 host permissions: upload generated HTML only after the user explicitly invokes Publish 24h Link. Not used for ordinary export, download, or PDF.
+
+## Dashboard privacy answers
+
+Remote code: **No.** All executable JavaScript is packaged in the extension. here.now responses are JSON and upload URLs, not code to execute.
+
+Certify Limited Use: **Yes**, consistent with PRIVACY.md.
+
+Disclose every category that can actually appear. Do not under-disclose:
+
+- **Website content** — the loaded ChatGPT/Claude/Gemini conversation, including text and media URLs/files already on the page.
+- **Personal communications** and/or **user-generated content** if those checkboxes exist — the chat is a conversation the user chose to export.
+- **Web browsing activity** / tab URLs — used locally to show the current site, store the source conversation URL, and find the original tab or an existing viewer. Not transmitted unless the user publishes HTML that itself contains the original conversation URL.
+- Do **not** check advertising, analytics, authentication-credential collection, or a developer account system. The extension may use the user's existing site session only to fetch media already visible in that chat for the local HTML.
+
+Privacy policy URL must stay in sync with the public page after each push to `docs/privacy.html`.
 
 ## Privacy policy URL
 

@@ -26,7 +26,13 @@
     .publish-dropdown button:hover { background:#2b3850; }
     #status { color:#aab3c5; font-size:12px; min-width:24px; max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:right; }
     iframe { flex:1 1 auto; min-height:0; width:100%; height:auto; border:0; background:white; display:block; }
-    @media print { html, body { height:auto; overflow:visible; } body { display:block; background:#fff; } .bar { display:none; } iframe { height:auto !important; min-height:100vh; } }
+    .consent { display:none; position:fixed; inset:0; z-index:20; align-items:center; justify-content:center; padding:24px; background:rgba(7,17,31,.72); }
+    .consent.open { display:flex; }
+    .consent-card { width:min(100%, 440px); background:#172033; color:#e5e7eb; border:1px solid #334155; border-radius:14px; padding:18px 18px 16px; }
+    .consent-card h2 { margin:0 0 10px; font-size:16px; }
+    .consent-card p { margin:0 0 10px; color:#c5cddb; font-weight:500; }
+    .consent-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:16px; }
+    @media print { html, body { height:auto; overflow:visible; } body { display:block; background:#fff; } .bar, .consent { display:none; } iframe { height:auto !important; min-height:100vh; } }
   </style>
 </head>
 <body>
@@ -46,6 +52,17 @@
     <span id="status"></span>
   </div>
   <iframe id="frame" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation allow-modals"></iframe>
+  <div id="consentDialog" class="consent" role="dialog" aria-modal="true" aria-labelledby="consentTitle" aria-hidden="true">
+    <div class="consent-card">
+      <h2 id="consentTitle">Publish a public 24-hour link?</h2>
+      <p>This uploads the exported HTML to here.now. Anyone with the link can read this conversation.</p>
+      <p>Anonymous here.now links are described as expiring after 24 hours unless claimed. You will only see this notice once.</p>
+      <div class="consent-actions">
+        <button id="consentCancel" class="secondary" type="button">Cancel</button>
+        <button id="consentAccept" type="button">I understand, publish</button>
+      </div>
+    </div>
+  </div>
   <script src="viewer.js"></script>
 </body>
 </html>

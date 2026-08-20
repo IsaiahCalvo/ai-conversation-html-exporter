@@ -1,6 +1,6 @@
 # Chrome Web Store release guide (Manifest V3)
 
-**Project:** AI Conversation HTML Exporter `0.4.21`
+**Project:** AI Conversation HTML Exporter `0.4.22`
 **Checked:** 2026-07-25
 **Scope:** Current first-party Chrome/Google documentation only. This is a preparation checklist; nothing was uploaded or submitted.
 
@@ -42,7 +42,7 @@ Also provide a precise detailed description, primary category, language, and—w
 
 ### Project-specific preflight
 
-The release candidate is MV3/version `0.4.21`. Its permission usage was checked against the source:
+The release candidate is MV3/version `0.4.22`. Its permission usage was checked against the source:
 
 1. `activeTab` and the supported-site host permissions scope extraction to user-invoked ChatGPT, Claude, and Gemini conversations. `scripting` is used only as a fallback to inject the packaged content script when it is not already responding.
 2. `tabs` is used to create, find, focus, and reuse viewer/source tabs. `storage` stores lightweight session indexes, while `unlimitedStorage` supports the IndexedDB payloads used for very large local HTML exports. `downloads` saves the generated standalone HTML.

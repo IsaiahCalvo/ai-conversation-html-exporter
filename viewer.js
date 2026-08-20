@@ -11,6 +11,10 @@ const publishBtn = document.getElementById('publish');
 const publishMenu = document.getElementById('publishMenu');
 const publishMenuToggle = document.getElementById('publishMenuToggle');
 const goPublishedBtn = document.getElementById('goPublished');
+const consentDialog = document.getElementById('consentDialog');
+const consentAccept = document.getElementById('consentAccept');
+const consentCancel = document.getElementById('consentCancel');
+const PUBLISH_CONSENT_KEY = 'hereNowPublishConsent';
 let html = '';
 let rawHtml = '';
 let title = 'AI Conversation';
@@ -257,11 +261,48 @@ async function copyPublishedUrl() {
   const copied = await copyText(latestPublishedUrl);
   setStatus(copied ? '' : 'Copy failed.');
 }
+function setConsentDialogOpen(open) {
+  consentDialog.classList.toggle('open', open);
+  consentDialog.setAttribute('aria-hidden', open ? 'false' : 'true');
+}
+function showPublishConsentDialog() {
+  return new Promise((resolve) => {
+    const finish = (ok) => {
+      setConsentDialogOpen(false);
+      consentAccept.removeEventListener('click', onAccept);
+      consentCancel.removeEventListener('click', onCancel);
+      document.removeEventListener('keydown', onKey);
+      resolve(ok);
+    };
+    const onAccept = () => finish(true);
+    const onCancel = () => finish(false);
+    const onKey = (event) => { if (event.key === 'Escape') finish(false); };
+    consentAccept.addEventListener('click', onAccept);
+    consentCancel.addEventListener('click', onCancel);
+    document.addEventListener('keydown', onKey);
+    setConsentDialogOpen(true);
+    try { consentAccept.focus(); } catch (_) {}
+  });
+}
+async function ensurePublishConsent() {
+  try {
+    const stored = await chrome.storage.local.get(PUBLISH_CONSENT_KEY);
+    if (stored?.[PUBLISH_CONSENT_KEY]) return true;
+  } catch (_) {}
+  const ok = await showPublishConsentDialog();
+  if (!ok) return false;
+  try { await chrome.storage.local.set({ [PUBLISH_CONSENT_KEY]: true }); } catch (_) {}
+  return true;
+}
 async function publishHereNow() {
   try {
     const portableHtml = rawHtml || html;
     if (!portableHtml) {
       setStatus('HTML missing; recreate export.');
+      return;
+    }
+    if (!(await ensurePublishConsent())) {
+      setStatus('Publish cancelled.');
       return;
     }
     publishBtn.disabled = true;

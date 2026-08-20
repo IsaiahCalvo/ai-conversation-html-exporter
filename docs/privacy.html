@@ -1,12 +1,116 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Conversation HTML Exporter — Privacy Policy</title><style>body{max-width:760px;margin:48px auto;padding:0 22px;color:#172033;font:16px/1.65 system-ui,sans-serif}h1,h2{line-height:1.2}a{color:#255fd6}code{background:#eef2f7;padding:.1em .35em;border-radius:5px}</style></head><body>
-<h1>AI Conversation HTML Exporter — Privacy Policy</h1>
-<p><strong>Effective date:</strong> July 25, 2026</p>
-<p>The extension converts conversations that you choose from ChatGPT, Claude, and Gemini into local HTML documents.</p>
-<h2>Data accessed</h2><p>When invoked on a supported page, the extension accesses the currently loaded conversation content and visible/accessible rich media needed for the export. Generated exports and minimal source/viewer metadata may be stored locally in Chrome extension storage.</p>
-<h2>Use and sharing</h2><p>By default, processing stays local. The extension does not sell data or use it for advertising, analytics, profiling, creditworthiness, or model training. Nothing is uploaded unless you explicitly click <strong>Publish 24h Link</strong>. That action uploads the generated HTML to here.now and Cloudflare R2 to create a public link. Anyone with the link may be able to view the exported conversation.</p>
-<h2>Retention</h2><p>Local data remains until Chrome or the user clears it, the extension is removed, or browser storage is evicted. Temporary-link retention is controlled by here.now and its infrastructure.</p>
-<h2>Security</h2><p>The extension contains no advertising or analytics SDK and requires no account or API key. Treat exports and public links as potentially sensitive.</p>
-<h2>Contact</h2><p>Open an issue at <a href="https://github.com/IsaiahCalvo/ai-conversation-html-exporter/issues">GitHub Issues</a>.</p>
-<p><a href="https://github.com/IsaiahCalvo/ai-conversation-html-exporter/blob/main/PRIVACY.md">Full policy and source code</a></p>
-</body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI Conversation HTML Exporter — Privacy Policy</title>
+  <style>
+    body { max-width: 760px; margin: 48px auto; padding: 0 22px 64px; color: #172033; font: 16px/1.65 system-ui, sans-serif; }
+    h1, h2, h3 { line-height: 1.25; }
+    h1 { font-size: 1.7rem; }
+    h2 { margin-top: 1.8em; }
+    a { color: #255fd6; }
+    code { background: #eef2f7; padding: .1em .35em; border-radius: 5px; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 15px; }
+    th, td { border: 1px solid #d9dee7; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #f4f6f9; }
+    .meta { color: #4a5568; }
+    ul { padding-left: 1.2em; }
+  </style>
+</head>
+<body>
+  <h1>AI Conversation HTML Exporter — Privacy Policy</h1>
+  <p class="meta"><strong>Developer:</strong> Isaiah Calvo<br>
+  <strong>Effective date:</strong> August 20, 2026<br>
+  <strong>Source code:</strong> <a href="https://github.com/IsaiahCalvo/ai-conversation-html-exporter">github.com/IsaiahCalvo/ai-conversation-html-exporter</a></p>
+
+  <p>This policy describes how the Chrome extension handles information. It is written to match the shipped code.</p>
+  <p>The use of information received from Google APIs, and of other user data handled by this extension, adheres to the <a href="https://developer.chrome.com/docs/webstore/program-policies/#user-data">Chrome Web Store User Data Policy</a>, including the Limited Use requirements.</p>
+
+  <h2>What this extension is for</h2>
+  <p>The extension converts a conversation you choose on ChatGPT, Claude, or Gemini into a portable HTML document or a print-ready PDF view. An optional <strong>Publish 24h Link</strong> action can upload that HTML so you get a temporary public URL.</p>
+  <p>It does not require an account with the developer. It does not include advertising, analytics, crash reporting, or a developer-operated backend.</p>
+
+  <h2>What counts as “handling” data</h2>
+  <p>Chrome Web Store rules treat local processing as handling user data. This extension handles data even when nothing leaves your computer.</p>
+
+  <h2>Data the extension can access</h2>
+
+  <h3>Conversation content</h3>
+  <p>When you click <strong>Create HTML Tab</strong> or <strong>Create PDF</strong> on a supported page, the extension reads the conversation currently loaded in that tab. That can include message text, headings, lists, tables, code, links, images, audio, video, and file names or URLs the page already exposes.</p>
+  <p>Extraction runs only on <code>chatgpt.com</code>, <code>claude.ai</code>, and <code>gemini.google.com</code>, and only after you invoke the extension. It does not scrape those sites in the background.</p>
+  <p>If a chat includes names, emails, locations, health details, financial details, or other sensitive material, that material can appear in the export. The extension does not try to detect or strip those categories.</p>
+
+  <h3>Media already shown in the chat</h3>
+  <p>To make a standalone HTML file, the extension may fetch images and other media URLs that are already part of the loaded conversation, using your existing logged-in session with that site. Those bytes are embedded in the local HTML when the fetch succeeds. The developer does not receive those files. If you later publish the HTML, those embedded files go with it.</p>
+
+  <h3>Tab information</h3>
+  <p>To show which site you are on, reopen the original chat, and reuse an existing export tab, the extension can read the active tab’s URL, store the source conversation URL and tab id with the export, and look through open tabs in this Chrome profile to find the original conversation or an existing HTML viewer.</p>
+  <p>Those tab URLs are used only for that navigation and reuse behavior. They are not sent to the developer or to here.now.</p>
+
+  <h3>Local export files and consent</h3>
+  <p>The extension stores generated HTML and related metadata (title, provider, message count, source URL/tab, content hashes) in Chrome extension storage / IndexedDB, plus a one-time flag that you agreed to <strong>Publish 24h Link</strong>.</p>
+  <p>The HTML preview copy is removed from extension storage about 10 minutes after the viewer opens. Session indexes used to reuse a viewer tab last until the browser session ends, you clear extension data, or you remove the extension. The publish-consent flag lasts until you clear extension data or uninstall.</p>
+
+  <h2>How the data is used</h2>
+  <p>Accessed content is used only to:</p>
+  <ul>
+    <li>build the HTML or PDF view you asked for</li>
+    <li>download or use the operating system’s local share sheet for that HTML file</li>
+    <li>focus the original conversation tab or an existing export tab</li>
+    <li>upload the generated HTML when you explicitly use <strong>Publish 24h Link</strong> after the one-time consent dialog</li>
+  </ul>
+  <p>The extension does not use this data for advertising, analytics, profiling, creditworthiness, lending, or model training. The developer does not get a copy of your chats unless you publish a public link and someone (including the developer) opens that link.</p>
+
+  <h2>When data leaves your browser</h2>
+  <p><strong>Default: it does not.</strong> Opening the extension, creating an HTML tab, downloading HTML, printing to PDF, and native “Share File” stay on the device.</p>
+  <p><strong>Optional publish:</strong> the first time you click <strong>Publish 24h Link</strong>, the extension shows a confirmation that the HTML will be uploaded and that anyone with the link can read it. After you accept once, later clicks of that button upload without showing the dialog again.</p>
+  <p>That upload sends the generated standalone HTML, plus a display title and a short description, to <a href="https://here.now/">here.now</a> and to Cloudflare R2 using a short-lived upload URL returned by here.now. The request identifies this extension with the header <code>X-HereNow-Client: ai-conversation-html-exporter/chrome-extension</code>.</p>
+  <p>Anyone who has the resulting public URL may be able to read the exported conversation, including embedded media. Anonymous here.now links are represented in the product as expiring after 24 hours unless claimed. After upload, retention, access, and deletion are controlled by here.now and Cloudflare, not by this extension.</p>
+  <p>Transmissions use HTTPS.</p>
+
+  <h2>What this extension does not collect</h2>
+  <ul>
+    <li>no developer account or API key</li>
+    <li>no sale of data</li>
+    <li>no ads, analytics, or telemetry SDKs</li>
+    <li>no remote JavaScript; all executable extension code is in the installed package</li>
+    <li>no developer-operated server that receives conversation content</li>
+  </ul>
+
+  <h2>Permissions, in plain language</h2>
+  <table>
+    <thead>
+      <tr><th>Permission</th><th>Why it exists</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>activeTab</code></td><td>Read the conversation tab after you click the extension.</td></tr>
+      <tr><td>Host access to ChatGPT, Claude, and Gemini</td><td>Extract the loaded conversation and embed media from those pages.</td></tr>
+      <tr><td><code>scripting</code></td><td>Inject the local <code>content.js</code> file if it is not already running.</td></tr>
+      <tr><td><code>downloads</code></td><td>Save the <code>.html</code> file.</td></tr>
+      <tr><td><code>storage</code></td><td>Remember viewer/source metadata and the one-time publish consent.</td></tr>
+      <tr><td><code>unlimitedStorage</code></td><td>Keep large HTML exports with embedded media from hitting Chrome’s small default quota.</td></tr>
+      <tr><td><code>tabs</code></td><td>Open the HTML viewer, focus it later, and find the original conversation tab. This can include reading other open tab URLs in this profile for that matching.</td></tr>
+      <tr><td>Host access to <code>here.now</code> and <code>*.r2.cloudflarestorage.com</code></td><td>Upload HTML only after <strong>Publish 24h Link</strong>. These hosts are not used for ordinary export, download, or PDF.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Your choices and deletion</h2>
+  <ul>
+    <li>Do not click <strong>Publish 24h Link</strong> if you do not want a public copy.</li>
+    <li>Download and print stay local.</li>
+    <li>Remove the extension or clear its data in Chrome to delete local exports and the stored consent flag.</li>
+    <li>For a link you already published, use here.now’s expiry/claim behavior. The developer cannot remotely delete your here.now URL.</li>
+  </ul>
+
+  <h2>Children</h2>
+  <p>This extension is not directed at children. Do not publish conversations that contain a child’s personal information.</p>
+
+  <h2>Changes</h2>
+  <p>Material changes will be published in the <a href="https://github.com/IsaiahCalvo/ai-conversation-html-exporter">source repository</a> and on this page, and the effective date will be updated.</p>
+
+  <h2>Contact</h2>
+  <p>Privacy questions, access, or deletion requests: <a href="https://github.com/IsaiahCalvo/ai-conversation-html-exporter/issues">GitHub Issues</a></p>
+  <p><a href="index.html">Product page</a> · <a href="https://github.com/IsaiahCalvo/ai-conversation-html-exporter/blob/main/PRIVACY.md">Policy in the repository</a></p>
+</body>
+</html>

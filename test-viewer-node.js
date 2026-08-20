@@ -20,7 +20,9 @@ function button(id) {
     disabled: false,
     title: '',
     setAttribute(name, value) { this[name] = value; },
+    focus() {},
     addEventListener(type, cb) { listeners.set(`${id}:${type}`, cb); },
+    removeEventListener(type, cb) { if (listeners.get(`${id}:${type}`) === cb) listeners.delete(`${id}:${type}`); },
     click() { const cb = listeners.get(`${id}:click`); if (cb) cb({ type: 'click', stopPropagation() {}, target: this }); }
   };
 }
@@ -39,10 +41,14 @@ function panel(id) {
       }
     },
     contains: () => false,
+    setAttribute(name, value) { this[name] = value; },
     addEventListener(type, cb) { listeners.set(`${id}:${type}`, cb); }
   };
 }
 const publishMenu = panel('publishMenu');
+const consentDialog = panel('consentDialog');
+const localStore = {};
+const publishedMessages = [];
 const elements = {
   frame,
   title: { textContent: '' },
@@ -54,7 +60,10 @@ const elements = {
   publish: button('publish'),
   publishMenu,
   publishMenuToggle: button('publishMenuToggle'),
-  goPublished: button('goPublished')
+  goPublished: button('goPublished'),
+  consentDialog,
+  consentAccept: button('consentAccept'),
+  consentCancel: button('consentCancel')
 };
 const windowListeners = new Map();
 const unhandled = [];
@@ -92,7 +101,8 @@ const context = {
     title: '',
     getElementById: (id) => elements[id],
     createElement: () => ({ click() {} }),
-    addEventListener(type, cb) { listeners.set(`document:${type}`, cb); }
+    addEventListener(type, cb) { listeners.set(`document:${type}`, cb); },
+    removeEventListener(type, cb) { if (listeners.get(`document:${type}`) === cb) listeners.delete(`document:${type}`); }
   },
   window: {
     addEventListener(type, cb) { windowListeners.set(type, cb); }
@@ -108,6 +118,7 @@ const context = {
     runtime: {
       getURL: (p) => `chrome-extension://test/${p}`,
       sendMessage: (msg) => {
+        publishedMessages.push(msg);
         if (msg?.type === 'AI_EXPORT_PUBLISH_HERENOW') {
           return Promise.resolve({ ok: true, url: 'https://latest-test.here.now/', claimUrl: 'https://here.now/claim?secret=hidden' });
         }
@@ -115,6 +126,13 @@ const context = {
       }
     },
     storage: {
+      local: {
+        get: async (key) => {
+          const name = typeof key === 'string' ? key : Object.keys(key || {})[0];
+          return name && localStore[name] ? { [name]: localStore[name] } : {};
+        },
+        set: async (values) => { Object.assign(localStore, values); }
+      },
       session: {
         get: async () => ({
           'export:test': {
@@ -166,8 +184,46 @@ context.globalThis = context;
   elements.publish.click();
   await new Promise(resolve => setImmediate(resolve));
   await new Promise(resolve => setImmediate(resolve));
+  if (!consentDialog.classList.contains('open')) {
+    console.error('FAIL first publish did not open the one-time consent dialog');
+    process.exit(1);
+  }
+  if (publishedMessages.some(msg => msg?.type === 'AI_EXPORT_PUBLISH_HERENOW')) {
+    console.error('FAIL publish uploaded before consent was accepted');
+    process.exit(1);
+  }
+  elements.consentCancel.click();
+  await new Promise(resolve => setImmediate(resolve));
+  if (consentDialog.classList.contains('open')) {
+    console.error('FAIL cancel did not close the consent dialog');
+    process.exit(1);
+  }
+  if (statusEl.textContent !== 'Publish cancelled.') {
+    console.error(`FAIL cancel status was ${JSON.stringify(statusEl.textContent)}`);
+    process.exit(1);
+  }
+  elements.publish.click();
+  await new Promise(resolve => setImmediate(resolve));
+  elements.consentAccept.click();
+  await new Promise(resolve => setImmediate(resolve));
+  await new Promise(resolve => setImmediate(resolve));
+  if (!localStore.hereNowPublishConsent) {
+    console.error('FAIL accepting consent did not persist one-time consent');
+    process.exit(1);
+  }
   if (!publishMenu.classList.contains('has-link')) {
     console.error('FAIL publish menu did not become a dropdown after publish');
+    process.exit(1);
+  }
+  elements.publish.click();
+  await new Promise(resolve => setImmediate(resolve));
+  await new Promise(resolve => setImmediate(resolve));
+  if (consentDialog.classList.contains('open')) {
+    console.error('FAIL consented publish asked for consent again');
+    process.exit(1);
+  }
+  if (publishedMessages.filter(msg => msg?.type === 'AI_EXPORT_PUBLISH_HERENOW').length !== 2) {
+    console.error(`FAIL expected two publishes after consent, got ${publishedMessages.filter(msg => msg?.type === 'AI_EXPORT_PUBLISH_HERENOW').length}`);
     process.exit(1);
   }
   if (statusEl.textContent !== '' || /claim|Published|copied|latest-test/i.test(statusEl.textContent)) {
