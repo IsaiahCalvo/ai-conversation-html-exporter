@@ -83,3 +83,16 @@ https://github.com/IsaiahCalvo/ai-conversation-html-exporter/issues
 ## Homepage URL
 
 https://github.com/IsaiahCalvo/ai-conversation-html-exporter
+
+## Listing images
+
+All files are in `store-assets/` and copied to `~/Desktop/builds/chrome-web-store-upload/`.
+
+- Store icon (128×128, 16px padding): `1-store-icon-128.png`
+- Small promo tile (440×280, required): `2-small-promo-440x280.png`
+- Marquee promo tile (1400×560, optional): `3-marquee-promo-1400x560.png`
+- Screenshot 1 — HTML viewer: `4-screenshot-viewer-1280x800.png`
+- Screenshot 2 — extension popup: `5-screenshot-popup-1280x800.png`
+- Screenshot 3 — publish consent: `6-screenshot-consent-1280x800.png`
+
+Upload ZIP: `ai-conversation-html-exporter-0.4.22.zip`
